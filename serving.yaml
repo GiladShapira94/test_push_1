@@ -1,0 +1,46 @@
+kind: serving
+metadata:
+  name: serving
+  hash: df5a84cd1efb4fb17945bee0f82ec3120e26f047
+  project: new-git-project
+  categories: []
+  credentials:
+    access_key: $generate
+spec:
+  command: ''
+  args: []
+  image: python:3.8
+  build:
+    commands:
+    - python -m pip install mlrun[complete] scikit-learn==1.0.2
+  description: ''
+  disable_auto_mount: false
+  env:
+  - name: S3_ENDPOINT_URL
+    value: http://minio.mlrun.svc.cluster.local:9000
+  - name: AWS_ACCESS_KEY_ID
+    value: minio
+  - name: AWS_SECRET_ACCESS_KEY
+    value: minio123
+  image_pull_secret: registry-credentials
+  preemption_mode: prevent
+  min_replicas: 1
+  max_replicas: 4
+  source: ''
+  function_kind: serving_v2
+  base_image_pull: false
+  graph:
+    kind: router
+    after: []
+    routes:
+      iris_model:
+        kind: task
+        class_name: mlrun.frameworks.sklearn.SklearnModelServer
+        class_args:
+          model_path: store://artifacts/new-git-project/iris_model:8195b874e3ef4ee9981ba6468ac00c9a
+        after: []
+  secret_sources: []
+  affinity: null
+  tolerations: null
+  security_context: {}
+verbose: false
