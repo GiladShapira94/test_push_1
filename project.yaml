@@ -39,6 +39,6 @@ spec:
     status:
       state: created
   conda: ''
-  source: git://github.com/GiladShapira94/test_push_1.git#refs/heads/master
-  origin_url: git://github.com/GiladShapira94/test_push_1.git#master
+  source: git://github.com/GiladShapira94/test_push_1.git#refs/heads/test
+  origin_url: git://github.com/GiladShapira94/test_push_1.git#refs/heads/test
   desired_state: online
